@@ -1,9 +1,8 @@
 package com.taghavi.imdbsearchapi.da.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.taghavi.imdbsearchapi.da.converter.NullDoubleConverter;
+import com.taghavi.imdbsearchapi.da.converter.NullIntegerConverter;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -16,12 +15,14 @@ import lombok.*;
 public class TitleRatings {
 
     @Id
-    @Column(name = "tconst")
+    @Column(name = "TCONST")
     private String id;
 
-    @Column(name = "average_rating")
+    @Column(name = "AVERAGERATING")
+    @Convert(converter = NullDoubleConverter.class)
     private Double averageRating;
 
-    @Column(name = "num_votes")
+    @Column(name = "NUMVOTES")
+    @Convert(converter = NullIntegerConverter.class)
     private Integer numVotes;
 }

@@ -16,22 +16,22 @@ import lombok.*;
 public class Actor {
 
     @Id
-    @Column(name = "nconst")
+    @Column(name = "NCONST")
     private String id;
 
-    @Column(name = "primary_name", length = 90000000)
+    @Column(name = "PRIMARYNAME", length = 90000000)
     private String actorName;
 
-    @Column(name = "birth_year")
+    @Column(name = "BIRTHYEAR")
     private String birthYear;
 
-    @Column(name = "death_year")
+    @Column(name = "DEATHYEAR")
     private String deathYear;
 
-    @Column(name = "primary_profession", length = 90000000)
+    @Column(name = "PRIMARYPROFESSION", length = 90000000)
     private String primaryProfession;
 
-    @Column(name = "known_for_titles", length = 90000000)
+    @Column(name = "KNOWNFORTITLES", length = 90000000)
     private String titles;
 
 }

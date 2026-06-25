@@ -16,12 +16,12 @@ import lombok.*;
 public class MovieCrew {
 
     @Id
-    @Column(name = "tconst")
+    @Column(name = "TCONST")
     private String id;
 
-    @Column(name = "directors",length = 90000000)
+    @Column(name = "DIRECTORS",length = 90000000)
     private String directors;
 
-    @Column(name = "writers",length = 90000000)
+    @Column(name = "WRITERS",length = 90000000)
     private String writers;
 }
