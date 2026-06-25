@@ -6,6 +6,7 @@ import com.taghavi.imdbsearchapi.service.ActorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,11 +21,16 @@ public class ActorServiceImpl implements ActorService {
 
     @Override
     public Actor getActorByName(String name) {
-        return repository.findByActorName(name);
+        return repository.findByActorName(name).get(0);
     }
 
     @Override
     public List<Actor> getActorsByIds(List<String> ids) {
-        return repository.findByIdIn(ids);
+        List<Actor> result = new ArrayList<>();
+        for (int i = 0; i < ids.size(); i += 100) {
+            int end = Math.min(i + 100, ids.size());
+            result.addAll(repository.findByIdIn(ids.subList(i, end)));
+        }
+        return result;
     }
 }

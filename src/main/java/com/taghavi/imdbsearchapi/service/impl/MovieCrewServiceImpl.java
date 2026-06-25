@@ -26,9 +26,7 @@ public class MovieCrewServiceImpl implements MovieCrewService {
 
     @Override
     public List<MovieCrew> getAllBySameWriterDirector() {
-        List<MovieCrew> crews = repository.findAll().stream()
-                .filter(this::hasCommonDirectorAndWriter)
-                .toList();
+        List<MovieCrew> crews = repository.getSimilarDirectorAndWriter();
 
         List<String> directorIds = crews.stream()
                 .flatMap(crew -> Arrays.stream(crew.getDirectors().split(",")))

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ActorRepository extends JpaRepository<Actor, String> {
-    Actor findByActorName(String actorName);
     List<Actor> findByIdIn(List<String> ids);
+
+    List<Actor> findByActorName(String actorName);
 }
