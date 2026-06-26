@@ -5,10 +5,12 @@ import com.taghavi.imdbsearchapi.da.model.MovieCrew;
 import com.taghavi.imdbsearchapi.da.repository.MovieCrewRepository;
 import com.taghavi.imdbsearchapi.service.ActorService;
 import com.taghavi.imdbsearchapi.service.MovieCrewService;
+import com.taghavi.imdbsearchapi.utility.Logger;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -21,32 +23,24 @@ public class MovieCrewServiceImpl implements MovieCrewService {
 
     @Override
     public List<MovieCrew> getAllMovieCrews() {
-        return repository.findAll();
+        try {
+            Logger.log("Getting all movie crews");
+            return repository.findAll();
+        } catch (Exception e) {
+            Logger.log("Error getting all movie crews: " + e.getMessage());
+            return Collections.emptyList();
+        }
     }
 
     @Override
     public List<MovieCrew> getAllBySameWriterDirector() {
-        List<MovieCrew> crews = repository.getSimilarDirectorAndWriter();
-
-        List<String> directorIds = crews.stream()
-                .flatMap(crew -> Arrays.stream(crew.getDirectors().split(",")))
-                .map(String::trim)
-                .distinct()
-                .collect(Collectors.toList());
-
-        List<Actor> livingDirectors = actorService.getActorsByIds(directorIds).stream()
-                .filter(actor -> actor.getDeathYear() == null || actor.getDeathYear().isEmpty())
-                .toList();
-
-        Set<String> livingDirectorIds = livingDirectors.stream()
-                .map(Actor::getId)
-                .collect(Collectors.toSet());
-
-        return crews.stream()
-                .filter(crew -> Arrays.stream(crew.getDirectors().split(","))
-                        .map(String::trim)
-                        .anyMatch(livingDirectorIds::contains))
-                .collect(Collectors.toList());
+        try {
+            Logger.log("Getting all movies with the same writer and director");
+            return repository.getSimilarDirectorAndWriter();
+        } catch (Exception e) {
+            Logger.log("Error getting all movies with the same writer and director: " + e.getMessage());
+            return Collections.emptyList();
+        }
     }
 
     private boolean hasCommonDirectorAndWriter(MovieCrew crew) {

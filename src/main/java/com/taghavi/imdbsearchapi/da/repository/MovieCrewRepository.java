@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface MovieCrewRepository extends JpaRepository<MovieCrew, String> {
 
-    @Query(value = "SELECT * FROM title_crew WHERE writers LIKE '%' || directors || '%' OR directors LIKE '%' || writers || '%';",nativeQuery = true)
+    @Query(value = "SELECT * FROM title_crew WHERE directors = writers AND writers != '\\N' AND writers in (SELECT NCONST FROM NAME_BASICS WHERE DEATHYEAR = '\\N');",nativeQuery = true)
     List<MovieCrew> getSimilarDirectorAndWriter();
 }

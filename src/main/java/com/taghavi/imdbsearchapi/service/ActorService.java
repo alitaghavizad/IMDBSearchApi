@@ -8,4 +8,6 @@ public interface ActorService {
     List<Actor> getAllActors();
     Actor getActorByName(String name);
     List<Actor> getActorsByIds(List<String> ids);
+
+    List<String> getLivingActorsIds();
 }
