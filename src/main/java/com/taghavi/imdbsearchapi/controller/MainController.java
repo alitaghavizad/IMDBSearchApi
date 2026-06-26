@@ -19,22 +19,25 @@ public class MainController {
     private final MainService mainService;
     private final ImdbImporter imdbImporter;
 
-    //takes under 70 seconds to respond
+    //takes under 10 seconds to respond
     @GetMapping("/sameMovies")
     public List<String> getSameMovies(@RequestParam String actor1, @RequestParam String actor2) {
         incrementApiCount();
         return mainService.findAllByActors(actor1, actor2);
     }
+    // takes nearly a minute to respond
     @GetMapping("/sameDirectorWriter")
     public List<String> getSameDirectorAndWriter(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
         incrementApiCount();
         return mainService.findAllByDirectorAndWriterSame(page, size);
     }
+    // takes around 1 and a half minutes to respond
     @GetMapping("/bestTitlesByGenre")
     public Map<Integer, String> getBestTitlesByGenre(@RequestParam String genre) {
         incrementApiCount();
         return mainService.findBestTitlesByGenre(genre);
     }
+    // the operation of insertion of data takes 5 to 6 minutes and indexing the tables takes around the same time for a total of near 10 minutes
     @GetMapping("/initializeDataBase")
     public void initializeDataBase() throws Exception {
         incrementApiCount();
