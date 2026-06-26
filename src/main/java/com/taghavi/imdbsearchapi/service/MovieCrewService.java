@@ -7,5 +7,5 @@ import java.util.List;
 public interface MovieCrewService {
     List<MovieCrew> getAllMovieCrews();
 
-    List<MovieCrew> getAllBySameWriterDirector();
+    List<MovieCrew> getAllBySameWriterDirector(int page, int size);
 }

@@ -7,6 +7,7 @@ import com.taghavi.imdbsearchapi.service.ActorService;
 import com.taghavi.imdbsearchapi.service.MovieCrewService;
 import com.taghavi.imdbsearchapi.utility.Logger;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -33,10 +34,10 @@ public class MovieCrewServiceImpl implements MovieCrewService {
     }
 
     @Override
-    public List<MovieCrew> getAllBySameWriterDirector() {
+    public List<MovieCrew> getAllBySameWriterDirector(int page, int size) {
         try {
             Logger.log("Getting all movies with the same writer and director");
-            return repository.getSimilarDirectorAndWriter();
+            return repository.getSimilarDirectorAndWriter(PageRequest.of(page, size));
         } catch (Exception e) {
             Logger.log("Error getting all movies with the same writer and director: " + e.getMessage());
             return Collections.emptyList();

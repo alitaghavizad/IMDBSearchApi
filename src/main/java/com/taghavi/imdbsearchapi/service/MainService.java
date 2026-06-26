@@ -9,7 +9,7 @@ import java.util.Map;
 @Service
 public interface MainService {
     List<String> findAllByActors(String actor1,String actor2);
-    List<String> findAllByDirectorAndWriterSame();
+    List<String> findAllByDirectorAndWriterSame(int page, int size);
     Map<Integer, String> findBestTitlesByGenre(String genre);
 
     void truncateAllTables();

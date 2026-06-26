@@ -46,10 +46,10 @@ public class MainServiceImpl implements MainService {
     }
 
     @Override
-    public List<String> findAllByDirectorAndWriterSame() {
+    public List<String> findAllByDirectorAndWriterSame(int page, int size) {
         try {
             Logger.log("Finding all movies by director and writer same");
-            List<MovieCrew> movieCrews = movieCrewService.getAllBySameWriterDirector();
+            List<MovieCrew> movieCrews = movieCrewService.getAllBySameWriterDirector(page, size);
             List<String> moviesIds = movieCrews.stream().map(MovieCrew::getId).toList();
             return movieService.getMoviesByIds(moviesIds);
         } catch (Exception e) {

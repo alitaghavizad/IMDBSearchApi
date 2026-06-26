@@ -26,9 +26,9 @@ public class MainController {
         return mainService.findAllByActors(actor1, actor2);
     }
     @GetMapping("/sameDirectorWriter")
-    public List<String> getSameDirectorAndWriter() {
+    public List<String> getSameDirectorAndWriter(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
         incrementApiCount();
-        return mainService.findAllByDirectorAndWriterSame();
+        return mainService.findAllByDirectorAndWriterSame(page, size);
     }
     @GetMapping("/bestTitlesByGenre")
     public Map<Integer, String> getBestTitlesByGenre(@RequestParam String genre) {

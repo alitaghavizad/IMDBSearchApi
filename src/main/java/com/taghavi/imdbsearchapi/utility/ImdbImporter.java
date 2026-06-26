@@ -67,13 +67,20 @@ public class ImdbImporter {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
              Statement stmt = conn.createStatement()) {
             System.out.println("Connected to H2 database.");
+            stmt.execute("DROP INDEX IF EXISTS idx_name;");
+            stmt.execute("DROP INDEX IF EXISTS idx_death;");
+            stmt.execute("DROP INDEX IF EXISTS idx_idt;");
+            stmt.execute("DROP INDEX IF EXISTS idx_start;");
+            stmt.execute("DROP INDEX IF EXISTS idx_genre;");
+            stmt.execute("DROP INDEX IF EXISTS idx_idc;");
+            stmt.execute("DROP INDEX IF EXISTS idx_idr;");
             stmt.execute("CREATE INDEX idx_name ON name_basics(PRIMARYNAME);");
             stmt.execute("CREATE INDEX idx_death ON name_basics(DEATHYEAR);");
-            stmt.execute("CREATE INDEX idx_id ON title_basics(TCONST);");
+            stmt.execute("CREATE INDEX idx_idt ON title_basics(TCONST);");
             stmt.execute("CREATE INDEX idx_start ON title_basics(STARTYEAR);");
             stmt.execute("CREATE INDEX idx_genre ON title_basics(GENRES);");
-            stmt.execute("CREATE INDEX idx_id ON title_crew(TCONST);");
-            stmt.execute("CREATE INDEX idx_id ON title_ratings(TCONST);");
+            stmt.execute("CREATE INDEX idx_idc ON title_crew(TCONST);");
+            stmt.execute("CREATE INDEX idx_idr ON title_ratings(TCONST);");
         } catch (Exception e) {
             System.err.println("Failed to load data: " + e.getMessage());
             e.printStackTrace();
