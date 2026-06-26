@@ -19,6 +19,7 @@ public class MainController {
     private final MainService mainService;
     private final ImdbImporter imdbImporter;
 
+    //takes under 70 seconds to respond
     @GetMapping("/sameMovies")
     public List<String> getSameMovies(@RequestParam String actor1, @RequestParam String actor2) {
         incrementApiCount();

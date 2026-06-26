@@ -33,10 +33,11 @@ public class TitleRatingsServiceImpl implements TitleRatingsService {
         try {
             Logger.log("Getting all title ratings by movies");
             List<TitleRatings> result = new ArrayList<>();
-            for (int i = 0; i < movieIds.size(); i += 100) {
-                int end = Math.min(i + 100, movieIds.size());
+            for (int i = 0; i < movieIds.size(); i += 5000) {
+                int end = Math.min(i + 5000, movieIds.size());
                 result.addAll(repository.findByIdIn(movieIds.subList(i, end)));
             }
+            result.addAll(repository.findByIdIn(movieIds));
             return result;
         } catch (Exception e) {
             Logger.log("Error getting all title ratings by movies: " + e.getMessage());

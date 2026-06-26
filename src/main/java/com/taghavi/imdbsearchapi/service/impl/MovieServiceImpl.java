@@ -44,8 +44,8 @@ public class MovieServiceImpl implements MovieService {
         try {
             Logger.log("Getting movies by ids");
             List<Movie> result = new ArrayList<>();
-            for (int i = 0; i < ids.size(); i += 100) {
-                int end = Math.min(i + 100, ids.size());
+            for (int i = 0; i < ids.size(); i += 5000) {
+                int end = Math.min(i + 5000, ids.size());
                 result.addAll(repository.findByIdIn(ids.subList(i, end)));
             }
             return result.stream().map(Movie::getPrimaryTitle).toList();

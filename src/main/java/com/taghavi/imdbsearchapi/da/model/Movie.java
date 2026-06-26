@@ -27,7 +27,7 @@ public class Movie {
     private String originalTitle;
 
     @Column(name = "ISADULT")
-    private Boolean isAdult;
+    private Integer isAdult;
 
     @Column(name = "STARTYEAR")
     @Convert(converter = NullIntegerConverter.class)

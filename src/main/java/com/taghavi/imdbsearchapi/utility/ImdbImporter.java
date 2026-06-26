@@ -29,7 +29,7 @@ public class ImdbImporter {
         populateDbData("title.crew.tsv", "title_crew");
         populateDbData("title.ratings.tsv", "title_ratings");
         populateDbData("name.basics.tsv", "name_basics");
-
+        createIndices();
         System.out.println("IMDb import completed.");
     }
 
@@ -57,6 +57,23 @@ public class ImdbImporter {
             System.out.printf("Data loaded successfully in %.1f seconds.%n", elapsed / 1000.0);
             stmt.execute("SET LOCK_MODE 3");
 
+        } catch (Exception e) {
+            System.err.println("Failed to load data: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public void createIndices() {
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+             Statement stmt = conn.createStatement()) {
+            System.out.println("Connected to H2 database.");
+            stmt.execute("CREATE INDEX idx_name ON name_basics(PRIMARYNAME);");
+            stmt.execute("CREATE INDEX idx_death ON name_basics(DEATHYEAR);");
+            stmt.execute("CREATE INDEX idx_id ON title_basics(TCONST);");
+            stmt.execute("CREATE INDEX idx_start ON title_basics(STARTYEAR);");
+            stmt.execute("CREATE INDEX idx_genre ON title_basics(GENRES);");
+            stmt.execute("CREATE INDEX idx_id ON title_crew(TCONST);");
+            stmt.execute("CREATE INDEX idx_id ON title_ratings(TCONST);");
         } catch (Exception e) {
             System.err.println("Failed to load data: " + e.getMessage());
             e.printStackTrace();
