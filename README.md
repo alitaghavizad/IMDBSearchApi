@@ -1,3 +1,4 @@
+v[![CI](https://github.com/alitaghavizad/imdb-search-api/actions/workflows/ci.yml/badge.svg)](https://github.com/alitaghavizad/imdb-search-api/actions/workflows/ci.yml)
 # IMDB Search API
 
 A **Spring Boot REST API** for querying locally imported IMDb datasets with Java, JPA, and an embedded H2 database.
